@@ -15,6 +15,8 @@ import http from "node:http";
 const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
+  console.log(req.method, req.url);
+
   if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Olá, mundo!");
@@ -23,6 +25,12 @@ const server = http.createServer((req, res) => {
   if (req.method === "GET" && req.url === "/sobre") {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     return res.end("<h1>Sobre</h1>");
+  }
+
+  if (req.method === "GET" && req.url.startsWith("/saudacao/")) {
+    const nome = req.url.substring("/saudacao/".length);
+    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+    return res.end(`Olá, ${nome}!`);
   }
 });
 
