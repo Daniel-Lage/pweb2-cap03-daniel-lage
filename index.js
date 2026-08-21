@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
 
   if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-    return res.end("Olá, mundo!");
+    return res.end("Olá, Mundo!");
   }
 
   if (req.method === "GET" && req.url === "/sobre") {
@@ -31,6 +31,17 @@ const server = http.createServer((req, res) => {
     const nome = req.url.substring("/saudacao/".length);
     res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end(`Olá, ${nome}!`);
+  }
+
+  if (req.method === "POST" && req.url === "/echo") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+    return req.on("end", () => {
+      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end(body);
+    });
   }
 
   res.writeHead(404);
