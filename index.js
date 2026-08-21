@@ -50,6 +50,11 @@ const server = http.createServer((req, res) => {
     return res.end(`Item ${id} atualizado`);
   }
 
+  if (req.method === "DELETE" && req.url.startsWith("/itens/")) {
+    res.writeHead(204);
+    return res.end();
+  }
+
   res.writeHead(404);
   res.end();
 });
