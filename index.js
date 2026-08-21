@@ -55,6 +55,11 @@ const server = http.createServer((req, res) => {
     return res.end();
   }
 
+  if (req.method === "PATCH" && req.url === "/config") {
+    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+    return res.end("Configuração atualizada");
+  }
+
   res.writeHead(404);
   res.end();
 });
