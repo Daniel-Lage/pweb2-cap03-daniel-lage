@@ -65,6 +65,29 @@ const server = http.createServer((req, res) => {
     return res.end();
   }
 
+  if (req.method === "GET" && req.url === "/agente") {
+    const userAgent = req.headers["user-agent"] || "";
+
+    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+    if (userAgent.includes("curl")) {
+      return res.end("Você é o cURL");
+    }
+
+    if (userAgent.includes("Mozilla")) {
+      return res.end("Você é um navegador");
+    }
+
+    if (userAgent.includes("Chrome")) {
+      return res.end("Você é um navegador");
+    }
+
+    if (userAgent.includes("Safari")) {
+      return res.end("Você é um navegador");
+    }
+
+    return res.end("Agente desconhecido");
+  }
+
   res.writeHead(404);
   res.end();
 });
