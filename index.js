@@ -60,6 +60,11 @@ const server = http.createServer((req, res) => {
     return res.end("Configuração atualizada");
   }
 
+  if (req.method === "HEAD" && req.url === "/status") {
+    res.writeHead(200, { "X-Status": "ok" });
+    return res.end();
+  }
+
   res.writeHead(404);
   res.end();
 });
