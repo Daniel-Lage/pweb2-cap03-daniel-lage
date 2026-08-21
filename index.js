@@ -15,8 +15,6 @@ import http from "node:http";
 const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
-  console.log(req.method, req.url);
-
   if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Olá, Mundo!");
@@ -89,7 +87,6 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.method === "GET" && req.url === "/secreto") {
-    console.log("X-Senha:", req.headers["x-senha"]);
     if (req.headers["x-senha"] === "1234") {
       res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
       return res.end("Acesso liberado");
